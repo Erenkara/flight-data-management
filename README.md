@@ -1,6 +1,6 @@
 # Flight Data Management
 
-A Spring Boot application for managing flight data with a RESTful API.
+A Spring Boot application for managing flight data with a RESTful API, developed using a Hexagonal architecture for clean, maintainable code.
 
 ## Description
 
