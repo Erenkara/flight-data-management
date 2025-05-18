@@ -1,0 +1,24 @@
+version: '3.8'
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: flight-data-management
+    ports:
+      - "8080:8080"
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+      # External API configuration - override these with actual values in production
+      - CRAZYSUPPLIER_API_URL=https://api.crazy-supplier.com/flights
+      - CRAZYSUPPLIER_API_TIMEOUT=5000
+      - CRAZYSUPPLIER_API_RETRY_MAX_ATTEMPTS=3
+      - CRAZYSUPPLIER_API_RETRY_DELAY=1000
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/api/actuator/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    restart: unless-stopped
